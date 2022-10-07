@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 3000;
 const start = async () => {
   try {
     await connectMongo();
-    console.log("hello :>> ");
 
     app.listen(PORT, (err) => {
       if (err) console.log("Error at server launch", err);

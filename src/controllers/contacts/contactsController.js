@@ -4,7 +4,7 @@ const {
   addContact,
   deleteContact,
   changeContact,
-} = require("../services");
+} = require("../../services/contacts");
 
 // process a request for contacts list statehood
 
