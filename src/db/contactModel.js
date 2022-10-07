@@ -1,20 +1,27 @@
-const mongoose = require("mongoose");
-const contactSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Set name for contact"],
-  },
-  email: {
-    type: String,
-  },
-  phone: {
-    type: String,
-  },
-  favorite: {
-    type: Boolean,
-    default: false,
-  },
-});
+const { Schema, model } = require("mongoose");
+const { handleSaveError } = require("../helpers");
 
-const Contact = mongoose.model("Contact", contactSchema);
+const contactSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Set name for contact"],
+    },
+    email: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    favorite: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  { versionKey: false, timestamps: true }
+);
+
+contactSchema.post("save", handleSaveError);
+
+const Contact = model("Contact", contactSchema);
 module.exports = Contact;

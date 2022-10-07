@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { requestError } = require("../helpers");
 
 const fieldsValidations = {
   addContactValidation: (req, res, next) => {
@@ -87,6 +88,18 @@ const fieldsValidations = {
       });
     }
     next();
+  },
+
+  validateBody: (schema) => {
+    const func = (req, _, next) => {
+      const { error } = schema.validate(req.body);
+      if (error) {
+        next(requestError(400, error.message));
+      }
+      next();
+    };
+
+    return func;
   },
 };
 

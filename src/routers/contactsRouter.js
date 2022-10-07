@@ -10,7 +10,7 @@ const {
   deleteContactController,
   changeContactController,
   changeContactStatusController,
-} = require("../controllers");
+} = require("../controllers/contacts");
 
 // middleware for validations
 const {
