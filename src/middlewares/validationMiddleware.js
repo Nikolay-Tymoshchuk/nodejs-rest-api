@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-module.exports = {
+const fieldsValidations = {
   addContactValidation: (req, res, next) => {
     const { name, email, phone } = req.body;
 
@@ -28,6 +28,7 @@ module.exports = {
         .pattern(/^[0-9]+$/)
         .trim()
         .required(),
+      favorite: Joi.boolean(),
     });
 
     const validationResult = schema.validate(req.body);
@@ -61,9 +62,8 @@ module.exports = {
           minDomainSegments: 2,
         })
         .trim(),
-      phone: Joi.string()
-        .pattern(/^[0-9]+$/)
-        .trim(),
+      phone: Joi.string().trim(),
+      favorite: Joi.boolean(),
     });
 
     const validationResult = schema.validate(req.body);
@@ -76,4 +76,18 @@ module.exports = {
     }
     next();
   },
+
+  updateStatusValidation: (req, res, next) => {
+    const { favorite } = req.body;
+
+    if (typeof favorite !== "boolean") {
+      return res.status(400).json({
+        message:
+          "Request body should have key 'favorite' with value of boolean type ",
+      });
+    }
+    next();
+  },
 };
+
+module.exports = fieldsValidations;
