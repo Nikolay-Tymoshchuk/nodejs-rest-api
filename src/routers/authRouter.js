@@ -6,14 +6,19 @@ const {
   loginController,
   logoutController,
   registerController,
+  changeSubscriptionController,
 } = require("../controllers/user");
 const { asyncWrapper } = require("../helpers");
-const { authenticate, validateBody } = require("../middlewares");
+const {
+  authenticate,
+  validateBody,
+  changeSubscriptionValidation,
+} = require("../middlewares");
 const { registerSchema, loginSchema } = require("../db");
 
 // Signup======================================>
 router.post(
-  "/register",
+  "/signup",
   validateBody(registerSchema),
   asyncWrapper(registerController)
 );
@@ -26,5 +31,13 @@ router.get("/current", authenticate, asyncWrapper(getCurrentController));
 
 // Signout=====================================>
 router.get("/logout", authenticate, asyncWrapper(logoutController));
+
+// Refresh subscription========================>
+router.patch(
+  "/users/:userId",
+  authenticate,
+  changeSubscriptionValidation,
+  asyncWrapper(changeSubscriptionController)
+);
 
 module.exports = router;

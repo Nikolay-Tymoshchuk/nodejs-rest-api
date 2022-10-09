@@ -101,6 +101,20 @@ const fieldsValidations = {
 
     return func;
   },
+
+  changeSubscriptionValidation: (req, res, next) => {
+    const { subscription } = req.body;
+    const array = ["starter", "pro", "business"];
+    if (!array.some((el) => el === subscription)) {
+      next(
+        requestError(
+          400,
+          "field subscription should be one of type: starter, pro, business"
+        )
+      );
+    }
+    next();
+  },
 };
 
 module.exports = fieldsValidations;

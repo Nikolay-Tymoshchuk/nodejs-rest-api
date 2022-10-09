@@ -1,11 +1,16 @@
-const { login, logout, register } = require("../../services/auth");
+const {
+  login,
+  logout,
+  register,
+  changeSubscription,
+} = require("../../services/auth");
 
 // Registration controller ===============================>
 
 const registerController = async (req, res) => {
   const result = await register(req.body);
   res.status(201).json({
-    name: result.name,
+    subscription: result.subscription,
     email: result.email,
   });
 };
@@ -22,9 +27,9 @@ const loginController = async (req, res) => {
 // Get current user data ==================================>
 
 const getCurrentController = async (req, res) => {
-  const { name, email } = req.user;
+  const { subscription, email } = req.user;
   res.json({
-    name,
+    subscription,
     email,
   });
 };
@@ -38,9 +43,21 @@ const logoutController = async (req, res) => {
   });
 };
 
+const changeSubscriptionController = async (req, res) => {
+  const { userId } = req.params;
+  const { subscription } = req.body;
+
+  const result = await changeSubscription(userId, subscription);
+  res.status(200).json({
+    message: `Subscription of contact ${userId} was successfully updated`,
+    new_subscription_status: result,
+  });
+};
+
 module.exports = {
   registerController,
   loginController,
   logoutController,
   getCurrentController,
+  changeSubscriptionController,
 };

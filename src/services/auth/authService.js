@@ -6,13 +6,16 @@ const { requestError } = require("../../helpers");
 
 // Registration controller ===============================>
 
-const register = async ({ name, email, password }) => {
+const register = async ({ email, password }) => {
   const user = await User.findOne({ email });
   if (user) {
     throw requestError(409, "Email already in use");
   }
   const hashedPassword = await bcrypt.hash(password, 10);
-  const result = await User.create({ name, email, password: hashedPassword });
+  const result = await User.create({
+    email,
+    password: hashedPassword,
+  });
   return result;
 };
 
@@ -38,8 +41,15 @@ const logout = async ({ _id }) => {
   await User.findOneAndUpdate(_id, { token: "" });
 };
 
+// Change User subscription type ==========================>
+const changeSubscription = async (id, subType) => {
+  await User.findOneAndUpdate(id, { subscription: `${subType}` });
+  return subType;
+};
+
 module.exports = {
   register,
   login,
   logout,
+  changeSubscription,
 };

@@ -3,6 +3,7 @@ const {
   updateContactValidation,
   updateStatusValidation,
   validateBody,
+  changeSubscriptionValidation,
 } = require("./validationMiddleware");
 
 const authenticate = require("./authenticate");
@@ -13,4 +14,5 @@ module.exports = {
   updateStatusValidation,
   authenticate,
   validateBody,
+  changeSubscriptionValidation,
 };
