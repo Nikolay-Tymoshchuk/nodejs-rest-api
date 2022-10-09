@@ -27,21 +27,21 @@ Implementing RESTful application on Node.js. At the current stage, we will compl
 @ PUT /api/contacts/:id/favorite
 
 
-#Signup
+# Signup
 
 @ POST /api/auth/register
 
-#Signin
+# Signin
 
 @ POST /api/auth/login
 
-#Get Current user
+# Get Current user
 
-@GET /api/auth/current
+@ GET /api/auth/current
 
-#Signout
+# Signout
 
-@GET /api/auth/logout
+@ GET /api/auth/logout
 
 ## Author
 
