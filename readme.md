@@ -26,7 +26,6 @@ Implementing RESTful application on Node.js. At the current stage, we will compl
 
 @ PUT /api/contacts/:id/favorite
 
-=======================>AUTHORIZATION<=============================
 
 #Signup
 
