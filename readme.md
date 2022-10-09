@@ -26,6 +26,24 @@ Implementing RESTful application on Node.js. At the current stage, we will compl
 
 @ PUT /api/contacts/:id/favorite
 
+=======================>AUTHORIZATION<=============================
+
+#Signup
+
+@ POST /api/auth/register
+
+#Signin
+
+@ POST /api/auth/login
+
+#Get Current user
+
+@GET /api/auth/current
+
+#Signout
+
+@GET /api/auth/logout
+
 ## Author
 
 - [@MykolaTymoshchuk](https://github.com/Nikolay-Tymoshchuk)
