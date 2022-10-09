@@ -28,7 +28,7 @@ Implementing RESTful application on Node.js. At the current stage, we will compl
 
 # Signup
 
-@ POST /api/auth/register
+@ POST /api/auth/signup
 
 # Signin
 
