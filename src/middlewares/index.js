@@ -7,6 +7,7 @@ const {
 } = require("./validationMiddleware");
 
 const authenticate = require("./authenticate");
+const uploadMiddleware = require("./uploadMiddleware.js");
 
 module.exports = {
   addContactValidation,
@@ -15,4 +16,5 @@ module.exports = {
   authenticate,
   validateBody,
   changeSubscriptionValidation,
+  uploadMiddleware,
 };
