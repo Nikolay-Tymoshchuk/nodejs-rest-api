@@ -26,10 +26,9 @@ Implementing RESTful application on Node.js. At the current stage, we will compl
 
 @ PUT /api/contacts/:id/favorite
 
-
 # Signup
 
-@ POST /api/auth/register
+@ POST /api/auth/signup
 
 # Signin
 
@@ -42,6 +41,11 @@ Implementing RESTful application on Node.js. At the current stage, we will compl
 # Signout
 
 @ GET /api/auth/logout
+
+# Change subscription type
+
+@PATCH /api/auth/users/:userId
+
 
 ## Author
 

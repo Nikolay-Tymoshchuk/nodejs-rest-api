@@ -4,12 +4,14 @@ const {
   addContact,
   deleteContact,
   changeContact,
-} = require("../services");
+} = require("../../services/contacts");
 
 // process a request for contacts list statehood
 
 const getContactsController = async (req, res) => {
-  const contacts = await getContacts();
+  const { _id: owner } = req.user;
+
+  const contacts = await getContacts({ owner, ...req.query });
   res.json({ contacts });
 };
 
@@ -30,7 +32,8 @@ const getContactByIdController = async (req, res) => {
 // process a request to add a new contact to the list
 
 const addContactController = async (req, res) => {
-  const contact = await addContact(req.body);
+  const { _id: owner } = req.user;
+  const contact = await addContact({ ...req.body, owner });
 
   res.json({
     status: "success",

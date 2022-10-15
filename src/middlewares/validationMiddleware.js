@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const { requestError } = require("../helpers");
 
 const fieldsValidations = {
   addContactValidation: (req, res, next) => {
@@ -85,6 +86,32 @@ const fieldsValidations = {
         message:
           "Request body should have key 'favorite' with value of boolean type ",
       });
+    }
+    next();
+  },
+
+  validateBody: (schema) => {
+    const func = (req, _, next) => {
+      const { error } = schema.validate(req.body);
+      if (error) {
+        next(requestError(400, error.message));
+      }
+      next();
+    };
+
+    return func;
+  },
+
+  changeSubscriptionValidation: (req, res, next) => {
+    const { subscription } = req.body;
+    const array = ["starter", "pro", "business"];
+    if (!array.some((el) => el === subscription)) {
+      next(
+        requestError(
+          400,
+          "field subscription should be one of type: starter, pro, business"
+        )
+      );
     }
     next();
   },

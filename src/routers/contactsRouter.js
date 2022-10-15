@@ -10,7 +10,7 @@ const {
   deleteContactController,
   changeContactController,
   changeContactStatusController,
-} = require("../controllers");
+} = require("../controllers/contacts");
 
 // middleware for validations
 const {
@@ -19,18 +19,31 @@ const {
   updateStatusValidation,
 } = require("../middlewares");
 
+const { authenticate } = require("../middlewares");
+
 // routers paths
-router.get("/", asyncWrapper(getContactsController));
-router.get("/:contactId", asyncWrapper(getContactByIdController));
-router.post("/", addContactValidation, asyncWrapper(addContactController));
-router.delete("/:contactId", asyncWrapper(deleteContactController));
+router.get("/", authenticate, asyncWrapper(getContactsController));
+router.get("/:contactId", authenticate, asyncWrapper(getContactByIdController));
+router.post(
+  "/",
+  authenticate,
+  addContactValidation,
+  asyncWrapper(addContactController)
+);
+router.delete(
+  "/:contactId",
+  authenticate,
+  asyncWrapper(deleteContactController)
+);
 router.put(
   "/:contactId",
+  authenticate,
   updateContactValidation,
   asyncWrapper(changeContactController)
 );
 router.patch(
   "/:contactId/favorite",
+  authenticate,
   updateStatusValidation,
   asyncWrapper(changeContactStatusController)
 );
