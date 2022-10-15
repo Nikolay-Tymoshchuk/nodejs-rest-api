@@ -46,6 +46,7 @@ Implementing RESTful application on Node.js. At the current stage, we will compl
 
 @PATCH /api/auth/users/:userId
 
+
 ## Author
 
 - [@MykolaTymoshchuk](https://github.com/Nikolay-Tymoshchuk)
