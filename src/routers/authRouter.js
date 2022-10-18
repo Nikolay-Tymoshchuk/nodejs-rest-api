@@ -13,8 +13,10 @@ const {
   authenticate,
   validateBody,
   changeSubscriptionValidation,
+  uploadMiddleware,
 } = require("../middlewares");
 const { registerSchema, loginSchema } = require("../db");
+const { updateAvatar } = require("../controllers/avatars");
 
 // Signup======================================>
 router.post(
@@ -38,6 +40,14 @@ router.patch(
   authenticate,
   changeSubscriptionValidation,
   asyncWrapper(changeSubscriptionController)
+);
+
+// Update avatar===============================>
+router.patch(
+  "/avatars",
+  authenticate,
+  uploadMiddleware.single("avatar"),
+  asyncWrapper(updateAvatar)
 );
 
 module.exports = router;

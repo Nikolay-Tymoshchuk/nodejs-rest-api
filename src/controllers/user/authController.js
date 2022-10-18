@@ -43,6 +43,8 @@ const logoutController = async (req, res) => {
   });
 };
 
+// Change subscription ====================================>
+
 const changeSubscriptionController = async (req, res) => {
   const { userId } = req.params;
   const { subscription } = req.body;
