@@ -4,7 +4,7 @@ const router = express.Router();
 
 const { asyncWrapper } = require("../helpers");
 const { uploadMiddleware } = require("../middlewares");
-const { uploadController } = require("../controllers/files");
+const { uploadController, getFileController } = require("../controllers/files");
 
 // POST  /api/avatars
 router.post(
@@ -12,5 +12,7 @@ router.post(
   uploadMiddleware.single("avatar"),
   asyncWrapper(uploadController)
 );
+
+router.get("/:fileName", asyncWrapper(getFileController));
 
 module.exports = router;

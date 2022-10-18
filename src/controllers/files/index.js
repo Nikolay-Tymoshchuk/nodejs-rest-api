@@ -1,3 +1,3 @@
-const { uploadController } = require("./filesController");
+const { uploadController, getFileController } = require("./filesController");
 
-module.exports = { uploadController };
+module.exports = { uploadController, getFileController };
