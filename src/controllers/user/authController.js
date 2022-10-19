@@ -18,9 +18,11 @@ const registerController = async (req, res) => {
 // Authorization controller ===============================>
 
 const loginController = async (req, res) => {
-  const token = await login(req.body);
+  const user = req.body;
+  const { token } = await login(user);
   res.json({
     token,
+    user,
   });
 };
 

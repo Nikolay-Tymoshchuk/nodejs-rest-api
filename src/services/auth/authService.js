@@ -36,7 +36,7 @@ const login = async ({ email, password }) => {
   };
   const token = jwt.sign(payload, SECRET, { expiresIn: "365d" });
   await User.findByIdAndUpdate(user._id, { token });
-  return token;
+  return { token };
 };
 
 // Logout User ============================================>
