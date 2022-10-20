@@ -26,17 +26,27 @@ const register = async ({ email, password, subscription = "" }) => {
 // Authorization controller ===============================>
 
 const login = async ({ email, password }) => {
-  const user = await User.findOne({ email });
-  const isPasswordCorrect = await bcrypt.compare(password, user.password);
-  if (!user || !isPasswordCorrect) {
-    throw requestError(401, "Email or password are wrong");
+  const user = await User.findOne({ email }, "-createdAt -updatedAt -__v");
+  if (!user) {
+    throw requestError(401, `There is no user with this email: ${email}`);
   }
+
+  const isPasswordCorrect = await bcrypt.compare(password, user.password);
+  if (!isPasswordCorrect) {
+    throw requestError(401, "Password is wrong");
+  }
+
   const payload = {
     id: user._id,
   };
   const token = jwt.sign(payload, SECRET, { expiresIn: "365d" });
   await User.findByIdAndUpdate(user._id, { token });
-  return { token };
+  const result = {
+    status: 200,
+    token,
+    user: { email, subscription: user.subscription },
+  };
+  return result;
 };
 
 // Logout User ============================================>

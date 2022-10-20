@@ -19,11 +19,8 @@ const registerController = async (req, res) => {
 
 const loginController = async (req, res) => {
   const user = req.body;
-  const { token } = await login(user);
-  res.json({
-    token,
-    user,
-  });
+  const loginAnswer = await login(user);
+  res.status(loginAnswer.status).json(loginAnswer);
 };
 
 // Get current user data ==================================>
