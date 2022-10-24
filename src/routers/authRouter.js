@@ -7,6 +7,8 @@ const {
   logoutController,
   registerController,
   changeSubscriptionController,
+  verifyController,
+  resendVerifyController,
 } = require("../controllers/user");
 const { asyncWrapper } = require("../helpers");
 const {
@@ -15,7 +17,7 @@ const {
   changeSubscriptionValidation,
   uploadMiddleware,
 } = require("../middlewares");
-const { registerSchema, loginSchema } = require("../db");
+const { registerSchema, loginSchema, verifyEmailSchema } = require("../db");
 const { updateAvatar } = require("../controllers/avatars");
 
 // Signup======================================>
@@ -23,6 +25,16 @@ router.post(
   "/signup",
   validateBody(registerSchema),
   asyncWrapper(registerController)
+);
+
+// Verification================================>
+router.get("/verify/:verificationToken", asyncWrapper(verifyController));
+
+// Reverification================================>
+router.post(
+  "/verify",
+  validateBody(verifyEmailSchema),
+  asyncWrapper(resendVerifyController)
 );
 
 // Signin======================================>

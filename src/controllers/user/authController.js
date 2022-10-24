@@ -12,6 +12,7 @@ const registerController = async (req, res) => {
   res.status(201).json({
     subscription: result.subscription,
     email: result.email,
+    verificationToken: result.verificationToken,
   });
 };
 

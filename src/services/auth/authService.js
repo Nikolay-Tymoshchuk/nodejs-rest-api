@@ -2,8 +2,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { SECRET } = process.env;
 const { User } = require("../../db");
-const { requestError } = require("../../helpers");
+const { requestError, emailVerify } = require("../../helpers");
 const gravatar = require("gravatar");
+const { v4: uuidv4 } = require("uuid");
 
 // Registration controller ===============================>
 
@@ -14,12 +15,15 @@ const register = async ({ email, password, subscription = "" }) => {
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   const avatarURL = gravatar.url(email, { s: "250", d: "robohash" });
+  const verificationToken = uuidv4();
   const result = await User.create({
     email,
     password: hashedPassword,
     avatarURL,
     subscription,
+    verificationToken,
   });
+  await emailVerify(email, verificationToken);
   return result;
 };
 
@@ -29,6 +33,10 @@ const login = async ({ email, password }) => {
   const user = await User.findOne({ email }, "-createdAt -updatedAt -__v");
   if (!user) {
     throw requestError(401, `There is no user with this email: ${email}`);
+  }
+
+  if (!user.verify) {
+    throw requestError(401, "Email is not verified");
   }
 
   const isPasswordCorrect = await bcrypt.compare(password, user.password);
