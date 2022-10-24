@@ -8,7 +8,7 @@ const { v4: uuidv4 } = require("uuid");
 
 // Registration controller ===============================>
 
-const register = async ({ email, password, subscription = "" }) => {
+const register = async ({ email, password, subscription }) => {
   const user = await User.findOne({ email });
   if (user) {
     throw requestError(409, "Email already in use");

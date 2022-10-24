@@ -16,7 +16,7 @@ const config = {
 
 const transporter = nodemailer.createTransport(config);
 
-const emailVerify = (email, verificationToken) => {
+const emailVerify = async (email, verificationToken) => {
   const emailOptions = {
     from: SENDER,
     to: email,
@@ -24,10 +24,12 @@ const emailVerify = (email, verificationToken) => {
     html: `<a target="_blank" href="${BASE_URL}/auth/verify/${verificationToken}">Click to confirm your registration</a>`,
   };
 
-  transporter
-    .sendMail(emailOptions)
-    .then((info) => console.log(info))
-    .catch((err) => console.log(err));
+  const info = await transporter.sendMail(emailOptions);
+  console.log("Email details =>", info);
+
+  if (!info) {
+    throw new Error("Email was not sent");
+  }
 };
 
 module.exports = emailVerify;
