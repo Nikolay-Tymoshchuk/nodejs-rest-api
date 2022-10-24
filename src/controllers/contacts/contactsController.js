@@ -70,6 +70,7 @@ const changeContactController = async (req, res) => {
   });
 };
 
+// process a request to modify the status of the contact
 const changeContactStatusController = async (req, res) => {
   const { contactId } = req.params;
 

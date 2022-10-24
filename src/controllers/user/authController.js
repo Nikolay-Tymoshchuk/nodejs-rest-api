@@ -18,10 +18,9 @@ const registerController = async (req, res) => {
 // Authorization controller ===============================>
 
 const loginController = async (req, res) => {
-  const token = await login(req.body);
-  res.json({
-    token,
-  });
+  const user = req.body;
+  const loginAnswer = await login(user);
+  res.status(loginAnswer.status).json(loginAnswer);
 };
 
 // Get current user data ==================================>
@@ -42,6 +41,8 @@ const logoutController = async (req, res) => {
     message: "Logout successful",
   });
 };
+
+// Change subscription ====================================>
 
 const changeSubscriptionController = async (req, res) => {
   const { userId } = req.params;

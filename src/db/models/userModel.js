@@ -15,6 +15,10 @@ const userSchema = new Schema(
       required: [true, "Password is required"],
       minlength: [4, "Password minimal length is 4 symbols"],
     },
+    avatarURL: {
+      type: String,
+      default: "",
+    },
     subscription: {
       type: String,
       enum: ["starter", "pro", "business"],
