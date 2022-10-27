@@ -2,6 +2,10 @@
 
 Implementing RESTful application on Node.js. At the current stage, we will complete express framework and configure basic routes.
 
+# Successful Docker image screenshot
+
+![App Screenshot](https://i.ibb.co/HYL0BgV/docker-image.jpg)
+
 # Get contact list
 
 @ GET /api/contacts.
